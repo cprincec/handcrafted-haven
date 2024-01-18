@@ -1,5 +1,5 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Group 1 Team Project WDD 430 with Mandy Chadwick, Prince Chukwu, Daniel Idorot, and Rene Olive. Creating ecommerce site called Handcrafted Haven.
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
