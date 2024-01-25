@@ -12,21 +12,25 @@ const config: Config = {
         '13': 'repeat(13, minmax(0, 1fr))',
       },
       colors: {
-        blue: {
-          400: '#2589FE',
-          500: '#0070F3',
-          600: '#2F6FEB',
-        },
+        dark: '#2F2522',
+        light: '#FEFFEA',
+        brown: '#A97160',
+        lightGreen: '#6C896E',
+        darkGreen: '#4B7F52',
+      },
+      fontFamily: {
+        sans: ['Noto Sans', 'sans-serif'],
+        serif: ['Noto Serif', 'serif'],
+        cursive: ['Island Moments', 'cursive']
       },
     },
     keyframes: {
       shimmer: {
-        '100%': {
-          transform: 'translateX(100%)',
-        },
+        '100%': { transform: 'translateX(100%)' },
       },
     },
   },
   plugins: [require('@tailwindcss/forms')],
 };
+
 export default config;
