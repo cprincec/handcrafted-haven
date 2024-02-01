@@ -1,6 +1,11 @@
-import AcmeLogo from '@/app/ui/handcraftedhavenlogo';
-import LoginForm from '@/app/ui/login-form';
- 
+import AcmeLogo from '@/app/components/handcraftedhavenlogo';
+import LoginForm from '@/app/components/login-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Handcrafted Haven | Login',
+};
+
 export default function LoginPage() {
   return (
     <main className="flex items-center justify-center md:h-screen">
