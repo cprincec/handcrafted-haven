@@ -53,7 +53,7 @@ const sellersData = [
 const SellersPage = () => {
     return (
       <div>
-        <h1>Handcrafted Haven Sellers</h1>
+        <br></br>
         <br></br>
         <br></br>
         <br></br>
