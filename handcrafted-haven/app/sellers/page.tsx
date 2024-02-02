@@ -3,7 +3,7 @@ import styles from '@/app/styles/home.module.css';
 import Navbar from '@/app/components/navbar';
 import { Metadata } from 'next';
 import SellersPage from './SellerPage';
-
+import './SellerPage.css';
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Sellers',
 };
