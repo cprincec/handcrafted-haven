@@ -3,7 +3,7 @@ import styles from '@/app/styles/home.module.css';
 import Navbar from '@/app/components/navbar';
 import ProductList from '@/app/components/product-list';
 import { Metadata } from 'next';
-import sellersPage from './mandyStuff/components/sellersPage';
+
 
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Products',
@@ -15,7 +15,7 @@ export default function Page() {
         
         <Navbar />
         <ProductList />
-        <sellersPage/>
+        
       </main>
     )
   }
