@@ -1,6 +1,5 @@
 import styles from '@/app/styles/home.module.css';
 <div className={styles.shape} />;
-import { lusitana } from '@/app/styles/fonts';
 import { Metadata } from 'next';
 import PageLayout from './components/page-layout';
  
