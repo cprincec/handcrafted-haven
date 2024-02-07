@@ -1,8 +1,8 @@
-
+import Image from 'next/image';
 export default function HandcraftedHavenLogo() {
   return (
     <div>
-      <img src="./images/hhHeader.png" className="h-32 rounded-lg flex-shrink-0" />
+      <Image src={'/images/hhHeader.png'} alt="logo" width={450} height={350} />
     </div>
   );
 }
