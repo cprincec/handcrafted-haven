@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 interface ProductProps {
@@ -14,11 +15,13 @@ interface ProductProps {
 const Product: React.FC<ProductProps> = ({ product }) => {
   return (
     <Link href={`/products/${product.id}`}>
-      <div className="m-4 max-w-sm rounded-lg border border-gray-300 bg-[#feffea] p-4 text-center shadow-lg">
-        <img
+      <div className="m-4 rounded-lg border border-gray-300 bg-[#feffea] p-4 text-center shadow-lg">
+        <Image
           src={product.imageUrl}
           alt={product.name}
           className="mx-auto mb-2 w-full max-w-xs rounded-full"
+          height={500}
+          width={500}
         />
         <h3 className="mb-2 text-lg font-semibold">{product.name}</h3>
         <p className="mb-4 text-sm text-gray-600">{product.description}</p>
