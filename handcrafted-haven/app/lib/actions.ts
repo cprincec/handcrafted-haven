@@ -75,19 +75,19 @@ export async function deleteInvoice(id: string) {
   revalidatePath("/dashboard/invoices");
 }
 
-export async function authenticate(
-    prevState: string | undefined,
-    formData: FormData,
-  ) {
-    // try {
-    //   await signIn('credentials', Object.fromEntries(formData));
-    // } catch (error) {
-    //   if ((error as Error).message.includes('CredentialsSignin')) {
-    //     return 'CredentialSignin';
-    //   }
-    //   throw error;
-    // }
-  }
+// export async function authenticate(
+//     prevState: string | undefined,
+//     formData: FormData,
+//   ) {
+//     try {
+//       // await signIn('credentials', Object.fromEntries(formData));
+//     } catch (error) {
+//       if ((error as Error).message.includes('CredentialsSignin')) {
+//         return 'CredentialSignin';
+//       }
+//       throw error;
+//     }
+//   }
 
     
   
