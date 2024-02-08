@@ -1,11 +1,12 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
+import { Product } from './definitions';
 
 export async function fetchProducts() {
   noStore();
 
   try {
-    const data = await sql`
+    const data = await sql<Product>`
       SELECT products.id, products.seller_id, products.name, products.description, products.price, products.image_url, sellers.name seller_name
       FROM products
       INNER JOIN sellers ON products.seller_id = sellers.id;

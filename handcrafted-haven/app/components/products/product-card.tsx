@@ -1,19 +1,8 @@
+import { Product } from '@/app/lib/definitions';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
-interface ProductProps {
-  product: {
-    id: string;
-    name: string;
-    description: string;
-    seller_id: string;
-    seller_name: string;
-    price: string;
-    image_url: string;
-  };
-}
 
-const ProductCard: React.FC<ProductProps> = ({ product }) => {
+export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.id}`}
@@ -31,6 +20,4 @@ const ProductCard: React.FC<ProductProps> = ({ product }) => {
       <p className="text-sm text-gray-500">Sold by: {product.seller_name}</p>
     </Link>
   );
-};
-
-export default ProductCard;
+}
