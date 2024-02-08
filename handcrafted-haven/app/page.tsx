@@ -1,5 +1,4 @@
 import styles from '@/app/styles/home.module.css';
-<div className={styles.shape} />;
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
