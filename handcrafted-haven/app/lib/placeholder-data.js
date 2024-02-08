@@ -1,3 +1,42 @@
+const users = [
+  {
+    id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
+    name: 'Carlose Woodward',
+    email: 'carlosewoodward@gmail.com',
+    password: '123456',
+  },
+  {
+    id: '50ca3e18-62cd-11ee-8c99-0242ac120002',
+    name: 'Darla Thread',
+    email: 'darlathread@gmail.com',
+    password: '123456',
+  },
+  {
+    id: '50ca3e20-62cd-11ee-8c99-0242ac120002',
+    name: 'Larry Clayton',
+    email: 'larryclayton@gmail.com',
+    password: '123456',
+  },
+  {
+    id: '50ca3e19-62cd-11ee-8c99-0242ac120002',
+    name: 'Allison Artison',
+    email: 'allisonartison@gmail.com',
+    password: '123456',
+  },
+  {
+    id: '3958dc9e-742f-4377-85e9-fec4b6a6442a',
+    name: 'Sarah Brass',
+    email: 'sarahbrass@gmail.com',
+    password: '123456',
+  },
+  {
+    id: '3958dc2e-742f-4377-85e9-fec4b6a6442a',
+    name: 'Gordon Peters',
+    email: 'gordonpeters@gmail.com',
+    password: '123456',
+  },
+];
+
 const sellers = [
   {
     id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
@@ -184,4 +223,5 @@ const reviews = [];
 module.exports = {
   products,
   sellers,
+  users,
 };

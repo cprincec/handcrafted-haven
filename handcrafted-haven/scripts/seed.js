@@ -1,11 +1,5 @@
 const { db } = require('@vercel/postgres');
-const {
-  invoices,
-  customers,
-  revenue,
-  users,
-} = require('../app/lib/placeholder-data.js');
-const { sellers, products } = require('../app/lib/placeholder-data.js');
+const { sellers, products, users } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
 async function seedProducts(client) {
@@ -100,12 +94,14 @@ async function seedReviews(client) {
     await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
     const createTable = await client.sql`
-      CREATE TABLE IF NOT EXISTS reviews (
-        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-        product_id UUID NOT NULL,
-        rating INT CHECK (rating >= 1 AND rating <= 5) NOT NULL,
-        comment TEXT NOT NULL
-      )
+    CREATE TABLE IF NOT EXISTS reviews (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      user_id UUID NOT NULL,
+      product_id UUID NOT NULL,
+      rating INT CHECK (rating >= 1 AND rating <= 5) NOT NULL,
+      comment TEXT NOT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
     `;
 
     console.log('Reviews table created successfully.');
@@ -119,12 +115,55 @@ async function seedReviews(client) {
   }
 }
 
+async function seedUsers(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+    // Create the "users" table if it doesn't exist
+    const createTable = await client.sql`
+      CREATE TABLE IF NOT EXISTS users (
+        id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email TEXT NOT NULL UNIQUE,
+        password TEXT NOT NULL
+      )
+    `;
+
+    const insertedUsers = await Promise.all(
+      users.map(async (user) => {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
+
+        return client.sql`
+          INSERT INTO users (id, name, email, password)
+          VALUES (
+            ${user.id || null},  -- Assuming user.id is provided in your data
+            ${user.name},
+            ${user.email},
+            ${hashedPassword}
+          )
+        `;
+      }),
+    );
+
+    console.log(`Seeded ${insertedUsers.length} users`);
+
+    return {
+      createTable,
+      users: insertedUsers,
+    };
+  } catch (error) {
+    console.error('Error seeding users:', error.message);
+    throw error;
+  }
+}
+
 async function main() {
   const client = await db.connect();
 
   await seedSellers(client);
   await seedProducts(client);
   await seedReviews(client);
+  await seedUsers(client);
 
   await client.end();
 }
