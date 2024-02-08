@@ -1,20 +1,31 @@
 import styles from '@/app/styles/home.module.css';
-<div className={styles.shape} />;
-import Navbar from '@/app/components/navbar';
 import { Metadata } from 'next';
-import SellersPage from './SellerPage';
 import './SellerPage.css';
+import { fetchSellers } from '../lib/data';
+import Image from 'next/image';
+
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Sellers',
 };
 
-export default function Page() {
-    return (
-      <main className="flex min-h-screen flex-col p-6 bg-lightGreen">
-        
-        <Navbar />
-        <SellersPage/>
-
-      </main>
-    )
-  }
+export default async function Page() {
+  const sellers = await fetchSellers();
+  return (
+    <div>
+      <div className="sellers-container">
+        {sellers.map((seller) => (
+          <div key={seller.id} className="seller-card px-6">
+            <Image
+              src={seller.seller_image}
+              width={300}
+              height={300}
+              alt={seller.name}
+            />
+            <h2 className="my-4 font-semibold">{seller.name}</h2>
+            <p>{seller.seller_bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
