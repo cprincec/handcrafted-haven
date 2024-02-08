@@ -1,5 +1,5 @@
 'use client';
-
+ 
 import { lusitana } from '@/app/styles/fonts';
 import {
   AtSymbolIcon,
@@ -10,20 +10,20 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/components/button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
-
+ 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
-
+ 
   return (
     <form action={dispatch} className="space-y-3">
-      <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+      <div className="flex-1 rounded-lg bg-dark text-light px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Please log in to continue.
         </h1>
         <div className="w-full">
           <div>
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium text-light"
               htmlFor="email"
             >
               Email
@@ -42,7 +42,7 @@ export default function LoginForm() {
           </div>
           <div className="mt-4">
             <label
-              className="mb-3 mt-5 block text-xs font-medium text-gray-900"
+              className="mb-3 mt-5 block text-xs font-medium text-light"
               htmlFor="password"
             >
               Password
@@ -78,10 +78,10 @@ export default function LoginForm() {
     </form>
   );
 }
-
+ 
 function LoginButton() {
   const { pending } = useFormStatus();
-
+ 
   return (
     <Button className="mt-4 w-full" aria-disabled={pending}>
       Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
