@@ -1,5 +1,4 @@
 import { fetchProductById } from '@/app/lib/data';
-import PageLayout from '../page-layout';
 import Image from 'next/image';
 import ProductReviews from './product-reviews';
 
@@ -35,7 +34,6 @@ export default async function ProductDetails({ id }: { id: string }) {
               </div>
             </div>
           </div>
-          <ProductReviews id={id} />
         </div>
       )}
     </>

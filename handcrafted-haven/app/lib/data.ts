@@ -47,7 +47,6 @@ export async function fetchSellers() {
 
 
 export async function fetchReviewsByProductId(product_id: string) {
-  console.log(product_id, "Id here")
   try {
     const data = await sql`SELECT reviews.*, users.name, users.name
     FROM reviews
