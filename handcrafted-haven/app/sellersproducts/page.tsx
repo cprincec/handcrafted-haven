@@ -19,8 +19,8 @@ export default async function Page() {
           <div key={seller.id} className="seller-card px-6">
             <Image
               src={seller.seller_image}
-              width={300}
-              height={300}
+              width={200}
+              height={200}
               alt={seller.name}
             />
             <h2 className="my-4 font-semibold">{seller.name}</h2>
