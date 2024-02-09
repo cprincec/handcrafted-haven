@@ -38,6 +38,10 @@ export default function Navbar() {
           <Link href="/products" className="text-dark hover:text-gray-700">
             Products
           </Link>
+          <Link href="/sellersproducts" className="text-dark hover:text-gray-700">
+            Sellers Products
+          </Link>
+
           <Link href="/sellers" className="text-dark hover:text-gray-700">
             Sellers
           </Link>
