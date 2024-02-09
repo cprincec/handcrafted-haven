@@ -26,13 +26,7 @@ export default async function Page() {
             <h2 className="my-4 font-semibold">{seller.name}</h2>
             <p>{seller.seller_bio}</p>
             <div className="products-container">
-              {products.filter(product => product.seller_id === seller.id).map((product) => (
-                <div key={product.id}>
-                  <Image src={product.image_url} width={100} height={100} alt={product.name} />
-                  <p>{product.name}</p>
-                  <p>${product.price}</p>
-                </div>
-              ))}
+        
             </div>
           </div>
         ))}
