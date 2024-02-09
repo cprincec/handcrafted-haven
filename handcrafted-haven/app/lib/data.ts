@@ -2,7 +2,7 @@ import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Product } from './definitions';
 
-export async function fetchProducts(maxPrice: string) {
+export async function fetchProducts(maxPrice: string = "5000") {
   noStore();
 
   try {
