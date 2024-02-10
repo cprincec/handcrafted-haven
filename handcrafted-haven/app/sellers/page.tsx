@@ -1,4 +1,3 @@
-import styles from '@/app/styles/home.module.css';
 import { Metadata } from 'next';
 import './SellerPage.css';
 import { fetchProducts, fetchSellers } from '../lib/data';

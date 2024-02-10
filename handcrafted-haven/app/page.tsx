@@ -10,35 +10,37 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <div className="mt-6 rounded-lg bg-light px-6 py-10 border border-dark text-xl text-gray-800 md:text-3xl md:leading-normal md:px-20">
+      <div className="mt-6 rounded-lg border border-dark bg-light px-6 py-10 text-xl text-gray-800 md:px-20 md:text-3xl md:leading-normal">
         <strong>Welcome to Handcrafted Haven.</strong> Connect with creativity
         and browse handcrafted and handmade products.
       </div>
-      
-      <div className='flex justify-center space-x-10'>
-        <Link href={'/sellers'}><button className="mt-6 rounded-lg bg-brown px-6 py-10 border border-dark text-xl text-light md:text-3xl md:leading-normal md:px-20 hover:italic hover:text-dark">
-          Sellers
-        </button>
+
+      <div className="flex justify-center space-x-10">
+        <Link href={'/sellers'}>
+          <button className="mt-6 rounded-lg border border-dark bg-brown px-6 py-10 text-xl text-light hover:italic hover:text-dark md:px-20 md:text-3xl md:leading-normal">
+            Sellers
+          </button>
         </Link>
-        <Link href={'/products'}><button className="mt-6 rounded-lg bg-brown px-6 py-10 border border-dark text-xl text-light md:text-3xl md:leading-normal md:px-20 hover:italic hover:text-dark">
-          Shop
-        </button>
-        </Link>     
+        <Link href={'/products'}>
+          <button className="mt-6 rounded-lg border border-dark bg-brown px-6 py-10 text-xl text-light hover:italic hover:text-dark md:px-20 md:text-3xl md:leading-normal">
+            Shop
+          </button>
+        </Link>
       </div>
-  
-      <div className="mt-14 flex flex-col items-stretch align-center gap-4 md:flex-row md:h-1/2">
+
+      <div className="align-center mt-14 flex flex-col items-stretch gap-4 md:h-1/2 md:flex-row">
         <div className="flex items-center justify-center md:h-full md:w-3/5">
           <img
             src="/images/girl-creating.jpg"
             alt="girl-creating"
-            className="h-full w-full border border-dark mx-2 rounded-lg object-cover"
+            className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
           />
         </div>
         <div className="flex items-center justify-center md:h-full md:w-3/5">
           <img
             src="/images/crafts.webp"
             alt="crafts"
-            className="h-full w-full mx-2 border border-dark rounded-lg object-cover"
+            className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
           />
         </div>
       </div>
