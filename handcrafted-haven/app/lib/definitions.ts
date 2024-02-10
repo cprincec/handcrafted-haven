@@ -19,3 +19,13 @@ export type Product = {
   image_url: string;
 };
 
+export type Review = {
+  id: string;
+  user_id: string;
+  product_id: string;
+  rating: number;
+  comment: string;
+  created_at: string;
+  name: string;
+}
+

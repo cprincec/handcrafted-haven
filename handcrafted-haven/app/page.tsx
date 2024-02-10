@@ -7,8 +7,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="mt-6 flex flex-col items-stretch gap-4 md:h-1/2 md:flex-row">
-      <div className="mt-14 flex flex-col justify-center gap-4 rounded-lg bg-light px-6 py-10 md:h-full md:w-2/5 md:px-20">
+    <div className="flex flex-col items-center gap-4 md:flex-row">
+      <div className="ml-14 flex flex-col justify-center gap-4 rounded-lg bg-light px-6 py-10 md:w-2/5 md:px-20">
         <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
           <strong>Welcome to Handcrafted Haven.</strong> Connect with creativity
           and browse handcrafted and handmade products.

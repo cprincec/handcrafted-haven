@@ -1,6 +1,6 @@
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
-import { Product } from './definitions';
+import { Product, Review } from './definitions';
 
 export async function fetchProducts() {
   noStore();
@@ -48,7 +48,7 @@ export async function fetchSellers() {
 
 export async function fetchReviewsByProductId(product_id: string) {
   try {
-    const data = await sql`SELECT reviews.*, users.name, users.name
+    const data = await sql<Review>`SELECT reviews.*, users.name
     FROM reviews
     INNER JOIN users ON reviews.user_id = users.id
     WHERE reviews.product_id = ${product_id};

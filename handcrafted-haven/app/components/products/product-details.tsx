@@ -28,12 +28,13 @@ export default async function ProductDetails({ id }: { id: string }) {
                 <p className="mb-2">
                   <span>Seller:</span> {product.seller_name}
                 </p>
-                <p className="text-xl font-bold text-darkGreen">
+                <p className="text-xl font-bold text-green-500">
                   ${product.price}
                 </p>
               </div>
             </div>
           </div>
+          <ProductReviews id={id} />
         </div>
       )}
     </>

@@ -5,18 +5,26 @@ export const authConfig = {
     signIn: '/login',
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
+    authorized({ request: { nextUrl }, auth }) {
+     
       const isLoggedIn = !!auth?.user;
-      // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/', nextUrl));
-      // }
-      return isLoggedIn;
-    },
+      const isOnProducts = nextUrl.pathname.startsWith("/products");
+    
+      if (isOnProducts) {
+        if (isLoggedIn) {
+          return true; // Allow access if logged in
+        } else {
+          return Response.redirect(new URL("/login", nextUrl)); // Redirect unauthenticated users to the login page
+        }
+      } 
+
+      return true;
+    },  
+
+    async session({ session, token}) {
+      session.user.id = token.sub;
+      return session;
+    }
   },
   providers: [], // Add providers with an empty array for now
 } satisfies NextAuthConfig; 
