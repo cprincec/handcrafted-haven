@@ -4,7 +4,7 @@ export default function HandcraftedHavenLogo() {
     <div>
       <Link href="/">
         <img
-          src="./images/hhHeader.png"
+          src="/images/hhHeader.png"
           className="h-32 flex-shrink-0 rounded-lg"
         />
       </Link>

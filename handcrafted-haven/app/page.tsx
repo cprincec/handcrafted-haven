@@ -1,5 +1,7 @@
 import styles from '@/app/styles/home.module.css';
+import Link from 'next/link';
 import { Metadata } from 'next';
+
 
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Home',
@@ -7,21 +9,41 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div className="flex flex-col items-center gap-4 md:flex-row">
-      <div className="ml-14 flex flex-col justify-center gap-4 rounded-lg bg-light px-6 py-10 md:w-2/5 md:px-20">
-        <p className="text-xl text-gray-800 md:text-3xl md:leading-normal">
-          <strong>Welcome to Handcrafted Haven.</strong> Connect with creativity
-          and browse handcrafted and handmade products.
-        </p>
+    <>
+      <div className="mt-6 rounded-lg border border-dark bg-light px-6 py-10 text-xl text-gray-800 md:px-20 md:text-3xl md:leading-normal">
+        <strong>Welcome to Handcrafted Haven.</strong> Connect with creativity
+        and browse handcrafted and handmade products.
       </div>
-      <div className="flex items-center justify-center md:h-full md:w-3/5">
-        <img
-          src="/images/girl-creating-440x660.jpg"
-          alt="girl-creating"
-          style={{ maxWidth: '80%' }}
-          className=" mx-2 rounded-lg object-cover"
-        />
+
+      <div className="flex justify-center space-x-10">
+        <Link href={'/sellers'}>
+          <button className="mt-6 rounded-lg border border-dark bg-brown px-6 py-10 text-xl text-light hover:italic hover:text-dark md:px-20 md:text-3xl md:leading-normal">
+            Sellers
+          </button>
+        </Link>
+        <Link href={'/products'}>
+          <button className="mt-6 rounded-lg border border-dark bg-brown px-6 py-10 text-xl text-light hover:italic hover:text-dark md:px-20 md:text-3xl md:leading-normal">
+            Shop
+          </button>
+        </Link>
       </div>
-    </div>
+
+      <div className="align-center mt-14 flex flex-col items-stretch gap-4 md:h-1/2 md:flex-row">
+        <div className="flex items-center justify-center md:h-full md:w-3/5">
+          <img
+            src="/images/girl-creating.jpg"
+            alt="girl-creating"
+            className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
+          />
+        </div>
+        <div className="flex items-center justify-center md:h-full md:w-3/5">
+          <img
+            src="/images/crafts.webp"
+            alt="crafts"
+            className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
+          />
+        </div>
+      </div>
+    </>
   );
 }

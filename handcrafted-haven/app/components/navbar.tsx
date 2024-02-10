@@ -10,7 +10,7 @@ export default function Navbar({ loggedInUser }: { loggedInUser: {} | null }) {
   // const [isOpen, setIsOpen] = useState(false);
   // const session = await auth();
   return (
-    <nav className="sticky start-0 top-0 z-20 max-h-[150px] w-full border-b border-gray-200 bg-light dark:border-gray-600">
+    <nav className="sticky start-0 top-0 z-20 max-h-[150px] w-full  bg-light ">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between p-4">
         <HandcraftedHavenLogo />
         {/* <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}> */}
@@ -35,13 +35,17 @@ export default function Navbar({ loggedInUser }: { loggedInUser: {} | null }) {
           
           flex-col md:flex md:flex-row md:items-center md:space-x-8`}
         >
-          <Link href="/" className="text-dark hover:text-gray-700">
+          <Link href="/" className="text-dark hover:text-gray-700 hover:italic">
             Home
           </Link>
-          <Link href="/products" className="text-dark hover:text-gray-700">
+          <Link href="/products" className="text-dark hover:text-gray-700 hover:italic">
             Products
           </Link>
-          <Link href="/sellers" className="text-dark hover:text-gray-700">
+          <Link href="/sellersproducts" className="text-dark hover:text-gray-700 hover:italic">
+            Sellers Products
+          </Link>
+
+          <Link href="/sellers" className="text-dark hover:text-gray-700 hover:italic">
             Sellers
           </Link>
           {loggedInUser ? <LogoutButton /> : <LoginButton />}

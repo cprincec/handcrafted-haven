@@ -2,16 +2,21 @@ import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import { Product, Review } from './definitions';
 
-export async function fetchProducts() {
+export async function fetchProducts(maxPrice: string = "5000") {
   noStore();
 
   try {
-    const data = await sql<Product>`
-      SELECT products.id, products.seller_id, products.name, products.description, products.price, products.image_url, sellers.name seller_name
+    // Using a template literal for the query and parameterized SQL to prevent SQL injection.
+    // The sql tagged template from '@vercel/postgres' automatically parameterizes inputs.
+    const query = sql<Product>`
+      SELECT products.id, products.seller_id, products.name, products.description, products.price, products.image_url, sellers.name AS seller_name
       FROM products
-      INNER JOIN sellers ON products.seller_id = sellers.id;
-      `;
+      INNER JOIN sellers ON products.seller_id = sellers.id
+      WHERE products.price <= ${maxPrice}
+      ORDER BY products.price desc;
+    `;
 
+    const data = await query;
     return data.rows;
   } catch (error) {
     console.error('Database Error:', error);
