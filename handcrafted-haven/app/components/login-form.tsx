@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   return (
     <form action={dispatch} className="w-full space-y-3">
-      <div className="flex-1 rounded-lg bg-dark px-6 pb-4 pt-8 text-light">
+      <div className="flex-1 rounded-lg bg-dark text-light px-6 pb-4 pt-8">
         <h1 className={`${lusitana.className} mb-3 text-2xl`}>
           Please log in to continue.
         </h1>
@@ -30,7 +30,7 @@ export default function LoginForm() {
             </label>
             <div className="relative">
               <input
-                className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm text-dark outline-2 placeholder:text-gray-500"
+                className="peer block w-full text-dark rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                 id="email"
                 type="email"
                 name="email"
