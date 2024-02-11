@@ -1,4 +1,4 @@
- import type { NextAuthConfig } from 'next-auth';
+ import type { NextAuthConfig, Session } from 'next-auth';
  
 export const authConfig = {
   pages: {
@@ -21,8 +21,11 @@ export const authConfig = {
       return true;
     },  
 
-    async session({ session, token}) {
-      session.user.id = token.sub;
+    async session({ session, token }: {
+      session: Session;
+      token?: { sub?: string };
+    }) {
+      if (token?.sub) (session.user as { id: string }).id = token.sub;
       return session;
     }
   },
