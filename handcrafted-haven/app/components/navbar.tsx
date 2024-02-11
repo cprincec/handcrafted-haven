@@ -3,13 +3,17 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import HandcraftedHavenLogo from './handcraftedhavenlogo';
 import LoginButton from './login-button';
+import LogoutButton from './logout-button';
+import SignupButton from './signup-button';
 
-export default function Navbar() {
+export default function Navbar({ loggedInUser }: { loggedInUser: {} | null }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <nav className="sticky start-0 top-0 z-20 max-h-[150px] w-full border-b border-gray-200 bg-light dark:border-gray-600">
       <div className="mx-auto flex max-w-screen-xl items-center justify-between p-4">
-        <HandcraftedHavenLogo />
+        <div className="md:ml-[-5rem]">
+          <HandcraftedHavenLogo />
+        </div>
         <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
           {/* Hamburger Icon */}
           <svg
@@ -41,7 +45,13 @@ export default function Navbar() {
           <Link href="/sellers" className="text-dark hover:text-gray-700">
             Sellers
           </Link>
-          <LoginButton />
+          {loggedInUser ? (
+            <LogoutButton />
+          ) : (
+            <>
+              <LoginButton /> <SignupButton />
+            </>
+          )}
         </div>
       </div>
     </nav>
