@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import SellerDetails from '../components/seller-details';
 
 export const metadata: Metadata = {
-  title: 'Product page',
+  title: 'Seller Profile',
 };
 
 export default function Page( ) {
