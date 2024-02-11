@@ -90,5 +90,65 @@ export async function authenticate(
     } 
   }
 
+
+  export type SignUpState = {
+    errors?: {
+      name?: string[];
+      email?: string[];
+      password?: string[];
+    }
+    message?: string | null;
+  };
+
+  
+  const SignUpSchema = z.object({
+    name: z.string(),
+    email: z.string().email(),
+    password: z.string().min(6)
+  });
+  
+  export async function signUp(prevState: SignUpState, formData: FormData) {
+    // Validate fields
+    const validatedFields = SignUpSchema.safeParse({
+      name: formData.get("name"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    });
+  
+    if (!validatedFields.success) {
+      return {
+        errors: validatedFields.error.flatten().fieldErrors,
+        message: "Validation failed. Please check your input.",
+      };
+    }
+  
+    const { name, email, password } = validatedFields.data;
+  
+    try {
+      // Insert user into the database
+      const result = await sql`
+        INSERT INTO users (name, email, password)
+        VALUES (${name}, ${email}, ${password})
+        RETURNING id, name, email;`;
+  
+      const user = result.rows[0];
+      console.log(user)
+  
+      // Authenticate the user after sign-up (optional)
+      // const session = await auth("credentials", {
+      //   email: user.email,
+      //   password: formData.get("password"),
+      // });
+  
+      return {
+        message: "Sign-up successful!",
+      };
+    } catch (error) {
+      console.error("Database Error:", error);
+      return {
+        message: "Database Error: Failed to sign up.",
+      };
+    }
+  }
     
   
