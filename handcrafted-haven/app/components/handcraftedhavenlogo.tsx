@@ -7,7 +7,7 @@ export default function HandcraftedHavenLogo() {
         <Image
           src="/images/hhHeader.png"
           alt="logo"
-          className="h-32 flex-shrink-0 rounded-lg ml-[-5rem]"
+          className="h-32 flex-shrink-0 rounded-lg"
           width={500}
           height={500}
         />

@@ -1,6 +1,7 @@
 import HHLogo from '@/app/components/handcraftedhavenlogo';
 import LoginForm from '@/app/components/login-form';
 import { Metadata } from 'next';
+import SignupForm from '../components/signup-form';
 
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Signup',
@@ -15,7 +16,7 @@ export default function LoginPage() {
             <HHLogo />
           </div>
         </div>
-        <LoginForm />
+        <SignupForm />
       </div>
     </main>
   );
