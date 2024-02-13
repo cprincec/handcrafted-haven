@@ -1,7 +1,8 @@
 import { fetchProductsBySeller, fetchSellerById } from '@/app/lib/data';
 import Image from 'next/image';
-import ProductCard from './products/product-card';
+import ProductCard from '../products/product-card';
 import { auth } from '@/auth';
+import AddProductForm from './add-product-form';
 
 export default async function SellerDetails() {
   const session = await auth();
@@ -13,7 +14,7 @@ export default async function SellerDetails() {
       {seller && (
         <>
           <div className="container mx-auto bg-lightGreen p-4 md:mt-6">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-8">
               <div className="mb-6 max-w-full md:mb-0">
                 <Image
                   src={seller.seller_image}
@@ -32,6 +33,10 @@ export default async function SellerDetails() {
                 </div>
               </div>
             </div>
+          </div>
+
+          <div>
+            <AddProductForm />
           </div>
           <div className="grid grid-cols-1 gap-16 p-12 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
             {products &&

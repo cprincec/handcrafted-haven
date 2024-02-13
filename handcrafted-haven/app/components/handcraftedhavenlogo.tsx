@@ -8,8 +8,8 @@ export default function HandcraftedHavenLogo() {
           src="/images/hhHeader.png"
           alt="logo"
           className="h-32 flex-shrink-0 rounded-lg"
-          width={500}
-          height={500}
+          width={550}
+          height={55}
         />
       </Link>
     </div>

@@ -1,7 +1,7 @@
 import styles from '@/app/styles/home.module.css';
 import Link from 'next/link';
 import { Metadata } from 'next';
-
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Handcrafted Haven | Home',
@@ -30,17 +30,21 @@ export default function Page() {
 
       <div className="align-center mt-14 flex flex-col items-stretch gap-4 md:h-1/2 md:flex-row">
         <div className="flex items-center justify-center md:h-full md:w-3/5">
-          <img
+          <Image
             src="/images/girl-creating.jpg"
             alt="girl-creating"
             className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
+            width={300}
+            height={500}
           />
         </div>
         <div className="flex items-center justify-center md:h-full md:w-3/5">
-          <img
+          <Image
             src="/images/crafts.webp"
             alt="crafts"
             className="mx-2 h-full w-full rounded-lg border border-dark object-cover"
+            width={300}
+            height={600}
           />
         </div>
       </div>

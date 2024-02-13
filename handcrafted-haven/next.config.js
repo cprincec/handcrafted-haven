@@ -4,15 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'dl.dropboxusercontent.com',
-        port: '',
-        pathname: '/scl/fi/*/*',
-      },
-      {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/drive-viewer/**',
+        hostname: '**',
       },
     ],
   },

@@ -5,6 +5,7 @@ import {
   AtSymbolIcon,
   KeyIcon,
   ExclamationCircleIcon,
+  UserIcon,
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/components/button';
@@ -12,12 +13,7 @@ import { useFormState, useFormStatus } from 'react-dom';
 import { signUp } from '@/app/lib/actions';
 
 export default function SignupForm() {
-  const initialState = {
-    message: null,
-    errors: {},
-  };
-
-  const [state, dispatch] = useFormState(signUp, initialState);
+  const [state, dispatch] = useFormState(signUp, undefined);
 
   return (
     <form action={dispatch} className="w-full space-y-3">
@@ -42,7 +38,7 @@ export default function SignupForm() {
                 placeholder="Enter your name"
                 required
               />
-              <AtSymbolIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
+              <UserIcon className="pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
             </div>
           </div>
           <div>
@@ -90,14 +86,13 @@ export default function SignupForm() {
           className="flex h-8 items-end space-x-1"
           aria-live="polite"
           aria-atomic="true"
-        >
-          {state && (
-            <>
-              <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{state.message}</p>
-            </>
-          )}
-        </div>
+        ></div>
+        {state?.message && (
+          <>
+            <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
+            <p className="text-sm text-red-500">{state.message}</p>
+          </>
+        )}
       </div>
     </form>
   );
