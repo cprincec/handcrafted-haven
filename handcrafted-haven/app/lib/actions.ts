@@ -1,14 +1,15 @@
 "use server";
-import { z } from "zod";
+import { object, z } from "zod";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "@/auth";
-
+import bcrypt from 'bcrypt'
 
 
 export type State = {
   errors?: {
+    name?: string[];
     rating?: string[];
     comment?: string[];
   }
@@ -17,55 +18,57 @@ export type State = {
 
 const ReviewFormSchema = z.object({
   productId: z.string(),
-  comment: z.string({
-      invalid_type_error: "Please type a comment."
-  })
-    ,
+  name: z.string().trim().min(1, { message: "Name is required" }),
+  comment: z.string().trim(),
   rating: z.coerce
       .number()
-      .gte(1, { message: "Please select a vaild rating"})
-      .lte(5, {message: "Please select a valid rating"}),
+      .gte(1, { message: "Please select a rating"})
+      .lte(5, {message: "Please select a rating"}),
 });
 
 const ReviewProduct = ReviewFormSchema.omit({ productId: true });
 export async function reviewProduct(productId: string, prevState: State, formData: FormData) {
-  // Ensure user is logged in
-  const session = await auth();
-  const userId = session?.user?.id
-  if(!userId) {
-    return redirect("/login")
-  }
 
   // validate fields
   const validatedFields = ReviewProduct.safeParse({
     comment: formData.get("comment"),
-    rating: formData.get("rating")
+    rating: formData.get("rating"),
+    name: formData.get("name")
   })
 
   if (!validatedFields.success) {
+    console.log(validatedFields.error.flatten().fieldErrors)
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: "Missing fields. Faild to add review"
     }
   }
 
-   const {rating, comment} = validatedFields.data;
-   try {
-    await sql`
-      INSERT INTO reviews (product_id, user_id, rating, comment)
-      VALUES (${productId}, ${userId}, ${rating}, ${comment})
-    `;
-  } catch (error) {
-    return {
-      message: 'Database Error: Failed to add review.',
-    };
+   const {name, rating, comment} = validatedFields.data;
+   const session = await auth();
+   let sqlQuery;
+   if (session) {
+    try {
+      await sql`INSERT INTO reviews (product_id, user_id, username, rating, comment)
+      VALUES (${productId}, ${session.user?.id}, ${name}, ${rating}, ${comment})`;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to add review.',
+      };
+   }} else { 
+    try {
+      await sql`INSERT INTO reviews (product_id, username, rating, comment)
+      VALUES (${productId}, ${name}, ${rating}, ${comment})`;
+    } catch (error) {
+      return {
+        message: 'Database Error: Failed to add review.',
+      };
+   }
+   
 }
   revalidatePath(`/products/${productId}`);
   redirect(`/products/${productId}`);
 }
-
-
-
 
 export async function authenticate(
     prevState: string | undefined,
@@ -107,7 +110,7 @@ export async function authenticate(
     password: z.string().min(6)
   });
   
-  export async function signUp(prevState: SignUpState, formData: FormData) {
+  export async function signUp(prevState: SignUpState | undefined, formData: FormData) {
     // Validate fields
     const validatedFields = SignUpSchema.safeParse({
       name: formData.get("name"),
@@ -121,34 +124,89 @@ export async function authenticate(
         message: "Validation failed. Please check your input.",
       };
     }
-  
     const { name, email, password } = validatedFields.data;
-  
+
     try {
+      // check for existing user
+
+      try {
+        const userExists = await sql`SELECT email FROM users WHERE users.email = ${email.trim()}`
+        if (userExists.rowCount) return { message: "An account exists for this user." };
+      } catch (error) {
+        console.error(error)
+        throw error;
+      }
+      
       // Insert user into the database
-      const result = await sql`
+      const hashedPassword = await bcrypt.hash(password, 10)
+      await sql`
         INSERT INTO users (name, email, password)
-        VALUES (${name}, ${email}, ${password})
-        RETURNING id, name, email;`;
-  
-      const user = result.rows[0];
-      console.log(user)
-  
-      // Authenticate the user after sign-up (optional)
-      // const session = await auth("credentials", {
-      //   email: user.email,
-      //   password: formData.get("password"),
-      // });
-  
-      return {
-        message: "Sign-up successful!",
-      };
+        VALUES (${name}, ${email}, ${hashedPassword})
+        RETURNING id;`;
+
+      await signIn('credentials', { email: email, password: password, redirect: true, redirectTo: "/" }) 
+      redirect("/");
     } catch (error) {
-      console.error("Database Error:", error);
-      return {
-        message: "Database Error: Failed to sign up.",
-      };
+      console.error(error);
+      throw error;     
+    } 
+
+  }
+
+
+  // Add product
+  export type ProductState = {
+    errors?: {
+      name?: string[];
+      description?: string[];
+      imageUrl?: string[];
+      price?: string[];
     }
+    message?: string | null;
+  }
+  
+  const AddProductSchema = z.object({
+    name: z.string().trim().min(1, { message: "Product Name is required" }),
+    description: z.string().trim().min(1, { message: "Product Description is required" }),
+    imageUrl: z.string().trim().min(1, { message: "Product Image Url is required" }),
+    price: z.coerce
+        .number()
+        .gte(1, { message: "Please enter valid price"})
+  });
+  
+  export async function addProduct(prevState: ProductState | undefined, formData: FormData) {
+    const session = await auth();
+    if (!session) {
+      redirect("/login")
+    }
+    
+    // validate fields
+    const validatedFields = AddProductSchema.safeParse({
+      description: formData.get("description"),
+      imageUrl: formData.get("imageUrl"),
+      price: formData.get("price"),
+      name: formData.get("name")
+    })
+  
+    if (!validatedFields.success) {
+      console.log(validatedFields.error.flatten().fieldErrors)
+      return {
+        errors: validatedFields.error.flatten().fieldErrors,
+        message: "Missing fields. Faild to add review"
+      }
+    }
+  
+     const {name, description, imageUrl, price} = validatedFields.data;
+     
+      try {
+        await sql`INSERT INTO products (seller_id, name, description, price, image_url)
+        VALUES (${session.user?.id}, ${name}, ${description}, ${price}, ${imageUrl})`;
+      } catch (error) {
+        return {
+          message: 'Database Error: Failed to add product.',
+        };
+     }
+    revalidatePath('/profile');
   }
     
   

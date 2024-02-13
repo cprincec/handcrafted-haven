@@ -1,13 +1,9 @@
 import { fetchReviewsByProductId } from '@/app/lib/data';
-import { ReviewButton } from './product-buttons';
-import { auth } from '@/auth';
 import ProductReviewForm from './product-review-form';
 import { Review } from '@/app/lib/definitions';
-import { table } from 'console';
 
 export default async function ProductReviews({ id }: { id: string }) {
   const reviews = await fetchReviewsByProductId(id);
-  const session = await auth();
 
   return (
     <div className="mx-3 mt-[3rem]">
@@ -24,12 +20,12 @@ export default async function ProductReviews({ id }: { id: string }) {
             return (
               <li key={review.id} className="bg-light p-4">
                 <div className="flex gap-6">
-                  <p>{review.name}</p>
+                  <p>{review.username}</p>
                   <p>{new Date(review.created_at).toLocaleDateString()}</p>
                 </div>
                 <div>
-                  {ratingStars.map((star) => (
-                    <span key={star} className={`text-2xl text-yellow-300`}>
+                  {ratingStars.map((star: string, index: number) => (
+                    <span key={index} className={`text-2xl text-yellow-300`}>
                       ★
                     </span>
                   ))}
@@ -40,7 +36,7 @@ export default async function ProductReviews({ id }: { id: string }) {
           })}
         </ul>
       )}
-      {session?.user ? <ProductReviewForm productId={id} /> : <ReviewButton />}
+      <ProductReviewForm productId={id} />
     </div>
   );
 }

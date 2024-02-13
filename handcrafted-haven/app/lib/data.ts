@@ -92,9 +92,8 @@ export async function fetchSellerById(id : string) {
 
 export async function fetchReviewsByProductId(product_id: string) {
   try {
-    const data = await sql<Review>`SELECT reviews.*, users.name
+    const data = await sql<Review>`SELECT *
     FROM reviews
-    INNER JOIN users ON reviews.user_id = users.id
     WHERE reviews.product_id = ${product_id};
     `;
 
@@ -104,4 +103,6 @@ export async function fetchReviewsByProductId(product_id: string) {
       throw new Error("Failed to fetch reviews.");
    }
 }
+
+
 

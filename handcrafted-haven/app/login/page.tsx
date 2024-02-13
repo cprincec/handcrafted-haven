@@ -8,12 +8,7 @@ export const metadata: Metadata = {
 
 export default function LoginPage() {
   return (
-    <div className="relative mx-auto flex w-full max-w-[400px] flex-col items-center justify-center space-y-2.5 p-4 md:-mt-32 md:min-h-screen md:w-full">
-      <div className="flex w-full items-end rounded-lg p-3 md:h-36">
-        <div>
-          <HHLogo />
-        </div>
-      </div>
+    <div className="m-auto flex w-full max-w-[400px] items-center md:min-h-[78vh]">
       <LoginForm />
     </div>
   );
